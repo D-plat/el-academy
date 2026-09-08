@@ -1,10 +1,9 @@
-# 이엘 아카데미 (EL Academy)
+# 이든 아카데미 (EDEN Academy)
 
 원페이지 랜딩. 빌드 도구 없이 정적 파일만으로 동작한다.
 
 ```
 index.html            페이지 전체 (CSS·JS 인라인)
-_headers              Cloudflare Pages 캐시·보안 헤더
 assets/hero.webp      01 히어로
 assets/card1~4.webp   05 4단 카드
 assets/human.webp     03 결국 사람
@@ -23,44 +22,18 @@ assets/favicon-*      파비콘 32 / 180 / 192
 5. 01~04 카드
 6. 이곳은 어떤 공간입니다 / 함께하는 과정
 
-상담 신청 섹션은 요청에 따라 삭제된 상태다.
+※ 상담 신청 섹션은 요청에 따라 삭제된 상태다.
 
----
+## 배포 (Cloudflare Pages)
 
-## 배포 (GitHub + Cloudflare Pages)
+1. GitHub 새 저장소에 이 폴더의 **내용물을 루트에** 올린다.
+2. Cloudflare → Workers & Pages → Create → Pages → Connect to Git
+3. Framework preset `None`, Build command 비움, Build output directory `/`
+4. Save and Deploy
 
-### 1. GitHub
+배포 후 `index.html` 상단의 `https://el-academy.pages.dev` 3곳(canonical, og:image, og:url)을
+실제 주소로 교체한다.
 
-이 폴더의 **내용물을 저장소 루트에** 올린다. (`el-academy-site` 폴더째로 올리면 경로가 밀려서 안 뜬다)
+## 참고
 
-저장소 이름: `el-academy`
-
-### 2. Cloudflare Pages
-
-1. Cloudflare 대시보드 → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. 저장소 `el-academy` 선택
-3. 프로젝트 이름: **`el-academy`** ← 이게 주소가 된다
-4. 빌드 설정
-   - Framework preset: **None**
-   - Build command: **(비움)**
-   - Build output directory: **`/`**
-5. **Save and Deploy**
-
-→ https://el-academy.pages.dev
-
-이후 `main`에 push할 때마다 자동 배포된다. PR을 올리면 미리보기 URL도 자동 생성.
-
-### 3. 커스텀 도메인
-
-프로젝트 → **Custom domains** → 도메인 입력 → 안내되는 CNAME 등록. SSL은 자동.
-
----
-
-## 수정 메모
-
-- 프로젝트 이름을 `el-academy` 말고 다른 걸로 하면 `index.html` 상단 메타 태그 3곳
-  (`canonical`, `og:image`, `og:url`)의 `el-academy.pages.dev`도 같이 고쳐야
-  카카오톡·페이스북 공유 미리보기가 뜬다.
-- 애니메이션은 전부 `prefers-reduced-motion`을 따른다.
-- `_headers`에 따라 이미지는 1년 캐시된다. 같은 파일명으로 교체하면 반영이 늦으니
-  `hero-2.webp`처럼 이름을 바꾸고 `index.html` 경로도 함께 고치는 편이 확실하다.
+- 모든 애니메이션은 `prefers-reduced-motion`을 따른다.
